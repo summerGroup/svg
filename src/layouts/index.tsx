@@ -9,10 +9,7 @@ export default function Layout() {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/docs">Docs</Link>
-        </li>
-        <li>
-          <a href="https://github.com/umijs/umi">Github</a>
+         <Link to='/polygon'>polygon</Link>
         </li>
       </ul>
       <Outlet />
