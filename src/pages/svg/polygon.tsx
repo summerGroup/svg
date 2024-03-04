@@ -1,8 +1,8 @@
 
-const list = new Array(10000).fill(1)
+const list = new Array(1314).fill(1)
 const e = 20;
-const y_d = e * 3 / 5;
-const x_d = e * 4 / 5;
+const y_d = 0.5 * e;
+const x_d = e;
 const oddStartX1 = x_d;
 const oddStartY1 = y_d;
 let lineStartX = oddStartX1;
@@ -13,7 +13,7 @@ let lineNum = 1;
 
 const svgWidth = 600
 
-const count = Math.floor(svgWidth / (2 * x_d))
+const count = Math.floor(svgWidth / (2 * e)) - 1
 
 const lines = Math.ceil(list.length / count)
 
@@ -41,17 +41,15 @@ export default function Polygon() {
 
     
     
+    
 
   return (
-    <div style={{width: `${svgWidth}px`, height: `${lines * (e +  y_d) + y_d}px`}}>
+    <div style={{width: `${svgWidth}px`, height: `${lines * 1.5 * e  + 0.5 * e}px`}}>
         <svg style={{width: `100%`, height: `100%`, border: '1px solid blue', overflow: 'auto'}} >
             {
                 list.map((_l, i) => {
                     let x = lineStartX;
                     let y = lineStartY;
-                 
-                    
-
                     if(i === 0) {
                         lineStarts.push([oddStartX1, oddStartY1])
                     }
