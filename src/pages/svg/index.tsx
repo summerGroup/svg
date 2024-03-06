@@ -8,56 +8,57 @@ const colorConfig = {
   'success': {stoke: '#000', fill: 'rgba(115, 191, 105, 0.8)'},
   'fail': {stoke: '#000', fill: 'rgba(242, 73, 92, 0.8)'},
   'wait': {stoke: '#000', fill: 'rgb(255, 255, 255, 0.6)'},
-  'processing': {stoke: '#000', fill: '#666'},
+  'processing': {stoke: '#000', fill: '#faad14'},
 }
+
 
 const nodes: {name: string; stores: any[], pointsInfo?: { pointsList: { points: string; node: any; }[]; lineNum: number; }}[] = [
   {
-    name: "安徽",
-    stores: new Array(100).fill(colorConfig.success),
+    name: "安徽1",
+    stores: new Array(3).fill(colorConfig.success),
   },
   {
-    name: "北京",
+    name: "北京2",
     stores: new Array(50).fill(colorConfig.fail),
   },
   {
-    name: "上海",
+    name: "上海3",
     stores: new Array(600).fill(colorConfig.success),
   },
   {
-    name: "南京",
-    stores: new Array(1000).fill(colorConfig.wait),
+    name: "南京4",
+    stores: new Array(100).fill(colorConfig.processing),
   },
   {
-    name: "苏州",
-    stores: new Array(700).fill(colorConfig.wait),
+    name: "苏州5",
+    stores: new Array(780).fill(colorConfig.wait),
   },
   {
-    name: "无锡",
+    name: "无锡6",
     stores: new Array(300).fill(colorConfig.wait),
   },
   {
-    name: "内蒙古",
-    stores: new Array(2).fill(colorConfig.wait),
+    name: "内蒙古7",
+    stores: new Array(20).fill(colorConfig.wait),
   },
   {
-    name: "大理",
+    name: "大理8",
     stores: new Array(5).fill(colorConfig.success),
   },
   {
-    name: "天目湖",
+    name: "天目湖9",
     stores: new Array(6).fill(colorConfig.success),
   },
   {
-    name: "靖江",
+    name: "靖江10",
     stores: new Array(8).fill(colorConfig.success),
   },
   {
-    name: "江苏",
+    name: "江苏11",
     stores: new Array(20).fill(colorConfig.fail),
   },
   {
-    name: "云南",
+    name: "云南12",
     stores: new Array(30).fill(colorConfig.success),
   },
 ];
@@ -68,16 +69,16 @@ const handleLayout = (list: typeof nodes, colNum: number, edge: number, svgWidth
   list.forEach((v, i) => {
     const pointsInfo = getPointsList({list: v.stores, edge, svgWidth})
     if (i <= colNum - 1) {
-      heights[i] = heights[i] + pointsInfo.lineNum
+      heights[i] = heights[i] + pointsInfo.lineNum + header / edge;
       res[i] = [...res[i], {...v, pointsInfo: pointsInfo || []}];
     } else {
       const min = Math.min.apply(null, heights);
       const minIndex = heights.findIndex((h) => h === min);
       res[minIndex] = [...res[minIndex], {...v, pointsInfo: pointsInfo || []}];
-      heights[minIndex] = heights[minIndex] + pointsInfo.lineNum;
+      heights[minIndex] = heights[minIndex] + pointsInfo.lineNum + header / edge;
     }
   });
-  return res;
+  return res; 
 };
 
 
@@ -86,6 +87,10 @@ const colNum = 3
 const margin = 4
 const padding = 6
 const edge = 10
+const header = 30
+
+const modifyHeight = margin * 2 + header 
+
 
 const defaultWidth = (window.innerWidth - 32 - colNum * 2 * margin - colNum * 2 * padding )/ colNum
 
