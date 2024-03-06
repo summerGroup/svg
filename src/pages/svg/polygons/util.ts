@@ -83,8 +83,8 @@ export const getPointsList = (pData: {
 };
 
 export const getSvgHeight = (
-  lines: number,
+  lines: number | undefined,
   edge: number
 ) => {
-  return `${lines * 1.5 * edge + 0.6 * edge}px`;
+  return `${(lines || 0) * 1.5 * edge + 0.6 * edge}px`;
 };

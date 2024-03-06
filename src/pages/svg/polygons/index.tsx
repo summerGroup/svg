@@ -1,25 +1,30 @@
 import { useMemo } from "react";
 import { getPointsList, getSvgHeight } from "./util";
+import _ from "lodash";
 
 interface Props {
-  list: any[];
+  pointsInfo: { pointsList: { points: string; node: any; }[]; lineNum: number; } | undefined;
   edge?: number;
   svgWidth?: number;
 }
 
 export default function Polygons(props: Props) {
-  const { list, edge = 20, svgWidth = 600 } = props;
+  const { pointsInfo, edge = 20, svgWidth = 600 } = props;
 
-  const pointsInfo = useMemo(() => {
+  // const pointsInfo = useMemo(() => {
   
-    return getPointsList({ list, edge, svgWidth });
-  }, [list, edge, svgWidth]);
+  //   return getPointsList({ list, edge, svgWidth });
+  // }, [list, edge, svgWidth]);
+
+  const _height = useMemo(() => {
+    return getSvgHeight(pointsInfo?.lineNum, edge)
+  }, [pointsInfo, edge])
 
   return (
     <div
       style={{
         width: `${svgWidth}px`,
-        height: getSvgHeight(pointsInfo.lineNum, edge),
+        height: _height,
       }}
     >
       <svg
@@ -28,7 +33,7 @@ export default function Polygons(props: Props) {
           height: `100%`,
         }}
       >
-        {pointsInfo.pointsList.map((p, i) => {
+        {pointsInfo?.pointsList.map((p, i) => {
           return (
             <polygon
               points={p.points}
